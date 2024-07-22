@@ -20,9 +20,15 @@ def create_connection(db_file):
         print(e)
         return None
 
-
 @app.route('/')
 def render_index():
+
+    return render_template('index.html')
+
+
+
+@app.route('/books')
+def render_books():
     # Define query and connection
     query = "SELECT * FROM books"
     con = create_connection(DATABASE)
@@ -33,8 +39,13 @@ def render_index():
     book_list = cur.fetchall()
     con.close()
     print(book_list)
-    return render_template('index.html', books=book_list)
+    return render_template('books.html', books=book_list)
     
+
+@app.route('/authors')
+def render_authors():
+
+    return render_template('authors.html')
 
 
 if __name__ == '__main__':
