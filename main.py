@@ -40,12 +40,22 @@ def render_books():
     con.close()
     print(book_list)
     return render_template('books.html', books=book_list)
-    
 
 @app.route('/authors')
 def render_authors():
+    # Define query and connection
+    query = "SELECT * FROM authors"
+    con = create_connection(DATABASE)
+    cur = con.cursor()
 
-    return render_template('authors.html')
+    # Query the database
+    cur.execute(query)
+    author_list = cur.fetchall()
+    con.close()
+    print(author_list)
+    return render_template('authors.html', authors=author_list)
+    
+
 
 
 if __name__ == '__main__':

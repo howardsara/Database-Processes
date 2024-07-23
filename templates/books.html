@@ -6,12 +6,12 @@
     </ul>
 </nav>
 
-<tbody>
+<table>
     {% for book in books %}
-    <tr>
-        {% for item in book %}
-            <td>{{ item }}</td>
-        {% endfor %}
-    </tr>
+        <tr>
+            {% for item in book %}
+                <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
     {% endfor %}
-</tbody>
+</table>

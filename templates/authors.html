@@ -5,3 +5,14 @@
       <li><a href="/authors">Authors</a></li>
     </ul>
 </nav>
+
+<table>
+    {% for author in authors %}
+        <tr>
+            {% for item in author %}
+                <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
