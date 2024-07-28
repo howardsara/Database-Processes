@@ -1,10 +1,12 @@
-from flask import Flask, render_template
 import sqlite3
 from sqlite3 import Error
+
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
 DATABASE = "books.db"
+
 
 def create_connection(db_file):
     """
@@ -20,17 +22,17 @@ def create_connection(db_file):
         print(e)
         return None
 
+
 @app.route('/')
 def render_index():
 
     return render_template('index.html')
 
 
-
 @app.route('/books')
 def render_books():
     # Define query and connection
-    query = "SELECT * FROM books"
+    query = "SELECT title, rating, genre, published, author_id FROM books"
     con = create_connection(DATABASE)
     cur = con.cursor()
 
@@ -40,6 +42,7 @@ def render_books():
     con.close()
     print(book_list)
     return render_template('books.html', books=book_list)
+
 
 @app.route('/authors')
 def render_authors():
@@ -54,8 +57,6 @@ def render_authors():
     con.close()
     print(author_list)
     return render_template('authors.html', authors=author_list)
-    
-
 
 
 if __name__ == '__main__':
