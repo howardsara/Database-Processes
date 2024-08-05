@@ -1,0 +1,94 @@
+/* Basic reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #3F648C; /* Dark background color */
+    padding: 10px 0; /* Vertical padding */
+}
+
+.nav-list {
+    list-style: none; /* Remove bullet points */
+    display: flex; /* Horizontal layout */
+    justify-content: center; /* Center the nav items */
+}
+
+.nav-item {
+    margin: 0 15px; /* Horizontal spacing between items */
+}
+
+.nav-link {
+    color: #E6EEF2; /* White text color */
+    text-decoration: none; /* Remove underline */
+    padding: 10px 15px; /* Padding around the text */
+    display: block; /* Make the link block-level */
+    transition: background-color 0.3s ease; /* Smooth background color change */
+}
+
+.nav-link:hover {
+    background-color: #345479; /* Darker background on hover */
+}
+
+
+
+
+/* Basic reset to ensure consistent styling across browsers */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style for the body */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 20px;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse; /* Ensures borders are collapsed into a single border */
+  margin: 20px 0;
+}
+
+th, td {
+  border: 1px solid #ddd; /* Light gray border for table cells */
+  padding: 10px; /* Space inside cells */
+  text-align: left; /* Align text to the left */
+}
+
+th {
+  background-color: #84A9CD; /* Blue background for table headers */
+  color:  #E6EEF2; /* White text color for table headers */
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9; /* Light gray background for even rows */
+}
+
+tr:hover {
+  background-color: #f1f1f1; /* Slightly darker background for rows on hover */
+}
+
+caption {
+  font-size: 1.5em; /* Larger font size for table caption */
+  margin: 10px 0; /* Margin around the caption */
+  text-align: center; /* Center align the caption */
+}
+
+/* Optional: Style for table container if needed */
+.table-container {
+  overflow-x: auto; /* Allows horizontal scrolling for large tables */
+}
