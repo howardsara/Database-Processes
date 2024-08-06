@@ -18,15 +18,19 @@
                 <th>Rating /5</th>
                 <th>Genre</th>
                 <th>Date Published</th>
+                <th>Cover</th>
                 <th>Author</th>
             </tr>
             
             {% for book in books %}
             <tr>
-                {% for item in book[:-1] %}
-                    <td>{{ item }}</td>
-                {% endfor %}
-                    <td>{{ authors[loop.index0] }}</td>
+                <td>{{ book[0] }}</td>
+                <td>{{ "⭐"*(book[1]) }}</td>
+                <td>{{ book[2] }}</td>
+                <td>{{ book[3] }}</td>
+                <td><img src="/static/covers/{{ book[4] }}"></td>
+                <td>{{ authors[loop.index0] }}</td>
+                
             </tr>
             {% endfor %}
         </table>
