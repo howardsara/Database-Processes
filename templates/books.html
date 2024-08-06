@@ -28,7 +28,7 @@
                 <td>{{ "⭐"*(book[1]) }}</td>
                 <td>{{ book[2] }}</td>
                 <td>{{ book[3] }}</td>
-                <td><img src="/static/covers/{{ book[4] }}"></td>
+                <td><img src="/static/covers/{{ book[4] }}" alt="{{book[0]}} by {{authors[loop.index0]}}"></td>
                 <td>{{ authors[loop.index0] }}</td>
                 
             </tr>
