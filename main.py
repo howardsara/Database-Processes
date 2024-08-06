@@ -33,15 +33,25 @@ def render_index():
 def render_books():
     # Define query and connection
     query = "SELECT title, rating, genre, published, author_id FROM books"
+    author_query = "SELECT * FROM authors"
     con = create_connection(DATABASE)
     cur = con.cursor()
 
     # Query the database
     cur.execute(query)
     book_list = cur.fetchall()
+    cur.execute(author_query)
+    author_list = cur.fetchall()
     con.close()
-    print(book_list)
-    return render_template('books.html', books=book_list)
+    print(book_list, author_list)
+
+    book_author = []
+    for book in book_list:
+        for author in author_list:
+            if book[-1] == author[0]:
+                book_author.append(author[1] + " " + author[2])
+
+    return render_template('books.html', books=book_list, authors=book_author)
 
 
 @app.route('/authors')
