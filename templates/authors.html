@@ -12,19 +12,15 @@
       </nav>
 
     <body>
-        <table>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-            </tr>
+        <article>
             {% for author in authors %}
-            <tr>
+            <div>
                 {% for item in author[1:] %}
-                    <td>{{ item }}</td>
+                    <p>{{ item }}</p>
                 {% endfor %}
-            </tr>
+            </div>
             {% endfor %}
-        </table>
+        </article>
     </body>
     
 </html>

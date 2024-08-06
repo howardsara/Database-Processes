@@ -92,3 +92,25 @@ caption {
 .table-container {
   overflow-x: auto; /* Allows horizontal scrolling for large tables */
 }
+
+
+
+article {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Spacing between items */ 
+    width: 100%;
+    padding: 10px;
+}
+
+
+div {
+    flex: 1 1 calc(25% - 20px); /* 4 items per row, accounting for gap */
+    background-color: #84A9CD;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 1.2rem;
+
+}

@@ -45,6 +45,7 @@ def render_books():
     con.close()
     print(book_list, author_list)
 
+    # Make an ordered list of authors in relation to each book
     book_author = []
     for book in book_list:
         for author in author_list:
