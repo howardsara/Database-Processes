@@ -12,27 +12,21 @@
       </nav>
 
     <body>
-        <table>
-            <tr>
-                <th>Title</th>
-                <th>Rating /5</th>
-                <th>Genre</th>
-                <th>Date Published</th>
-                <th>Cover</th>
-                <th>Author</th>
-            </tr>
+        <article>
             
             {% for book in books %}
-            <tr>
-                <td>{{ book[0] }}</td>
-                <td>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</td>
-                <td>{{ book[2] }}</td>
-                <td>{{ book[3] }}</td>
-                <td><img src="/static/covers/{{ book[4] }}" alt="{{book[0]}} by {{authors[loop.index0]}}"></td>
-                <td>{{ authors[loop.index0] }}</td>
-            </tr>
+            <div>
+                <img src="/static/covers/{{ book[4] }}" alt="{{book[0]}} by {{authors[loop.index0]}}">
+                <p>{{ book[0] }}</p>
+                <p>by {{ authors[loop.index0] }}</p>
+                <p>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</p>
+                <p>{{ book[2] }}</p>
+                <p>Published: {{ book[3] }}</p>
+                
+                
+            </div>
             {% endfor %}
-        </table>
+        </article>
     </body>
 
 </html>

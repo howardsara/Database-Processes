@@ -101,6 +101,8 @@ article {
     gap: 20px; /* Spacing between items */ 
     width: 100%;
     padding: 10px;
+    margin-top: 10px;
+
 }
 
 
@@ -118,5 +120,5 @@ div {
 
 
 img {
-    max-width: 150px;
+    height: 300px;
 }
