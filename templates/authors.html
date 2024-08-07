@@ -15,9 +15,8 @@
         <article>
             {% for author in authors %}
             <div>
-                {% for item in author[1:] %}
-                    <p>{{ item }}</p>
-                {% endfor %}
+                <img src="/static/authors/{{ author[1] }}" alt="{{ author[2] }} {{ author[3]}}">
+                <p>{{ author[2] }} {{ author[3] }}</p>
             </div>
             {% endfor %}
         </article>
