@@ -1,13 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="static/css/style.css">
-  </head>
-  <nav class="navbar">
-      <ul class="nav-list">
-        <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="/books" class="nav-link">Books</a></li>
-        <li class="nav-item"><a href="/authors" class="nav-link">Authors</a></li>
-      </ul>
-  </nav>
+    <head>
+        <link rel="stylesheet" href="static/css/style.css">
+    </head>
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="/books" class="nav-link">Books</a></li>
+            <li class="nav-item"><a href="/authors" class="nav-link">Authors</a></li>
+        </ul>
+    </nav>
+
+    <body>
+        <div class="carousel-container">
+            <button class="prev">❮</button>
+            <div class="carousel">
+                <div class="carousel-images">
+                    {% for book in books %}
+                    <div class="index-book">
+                        <img src="/static/covers/{{ book[4] }}" alt="{{book[0]}} by {{authors[loop.index0]}}">
+                        <p>{{ book[0] }}</p>
+                        <p>by {{ authors[loop.index0] }}</p>
+                        <p>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</p>
+                        <p>{{ book[2] }}</p>
+                        <p>Published: {{ book[3] }}</p>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+            <button class="next">❯</button>
+        </div>
+        <script src="static/script.js"></script>
+    </body>
+    
+
+    
 </html>

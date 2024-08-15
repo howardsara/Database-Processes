@@ -1,13 +1,19 @@
-/* Basic reset for margin and padding */
+/* Basic reset to ensure consistent styling across browsers */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* Style for the body */
 body {
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 20px;
 }
+
 
 /* Navbar styles */
 .navbar {
@@ -40,60 +46,7 @@ body {
 
 
 
-/* Basic reset to ensure consistent styling across browsers */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Style for the body */
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #f0f0f0;
-  color: #333;
-  padding: 20px;
-}
-
-/* Table styles */
-table {
-  width: 100%;
-  border-collapse: collapse; /* Ensures borders are collapsed into a single border */
-  margin: 20px 0;
-}
-
-th, td {
-  border: 1px solid #ddd; /* Light gray border for table cells */
-  padding: 10px; /* Space inside cells */
-  text-align: left; /* Align text to the left */
-}
-
-th {
-  background-color: #84A9CD; /* Blue background for table headers */
-  color:  #E6EEF2; /* White text color for table headers */
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9; /* Light gray background for even rows */
-}
-
-tr:hover {
-  background-color: #f1f1f1; /* Slightly darker background for rows on hover */
-}
-
-caption {
-  font-size: 1.5em; /* Larger font size for table caption */
-  margin: 10px 0; /* Margin around the caption */
-  text-align: center; /* Center align the caption */
-}
-
-/* Optional: Style for table container if needed */
-.table-container {
-  overflow-x: auto; /* Allows horizontal scrolling for large tables */
-}
-
-
+/* Styling of books and authors on book/author pages */
 
 article {
     display: flex;
@@ -102,11 +55,10 @@ article {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
-
 }
 
 
-div {
+.book, .author {
     flex: 1 1 calc(25% - 20px); /* 4 items per row, accounting for gap */
     background-color: #84A9CD;
     color: white;
@@ -114,11 +66,77 @@ div {
     text-align: center;
     border-radius: 8px;
     font-size: 1.2rem;
-
 }
-
 
 
 img {
     height: 300px;
+}
+
+
+
+
+/* Image caraousel */
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.index-book {
+        background-color: #84A9CD;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        margin: 20px;
+        
+    }
+
+
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+    font-size: 24px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+@media (max-width: 768px) {
+    .index-book {
+        flex: 1 0 50%; /* Show 2 images at a time on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .index-book {
+        flex: 1 0 100%; /* Show 1 image at a time on very small screens */
+    }
 }

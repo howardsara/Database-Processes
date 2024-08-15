@@ -25,8 +25,28 @@ def create_connection(db_file):
 
 @app.route('/')
 def render_index():
+    # Define query and connection
+    query = "SELECT title, rating, genre, published, cover, author_id FROM books WHERE rating > 3"
+    author_query = "SELECT author_id, first_name, last_name FROM authors"
+    con = create_connection(DATABASE)
+    cur = con.cursor()
 
-    return render_template('index.html')
+    # Query the database
+    cur.execute(query)
+    book_list = cur.fetchall()
+    cur.execute(author_query)
+    author_list = cur.fetchall()
+    con.close()
+    print(book_list, author_list)
+
+    # Make an ordered list of authors in relation to each book
+    book_author = []
+    for book in book_list:
+        for author in author_list:
+            if book[-1] == author[0]:
+                book_author.append(author[1] + " " + author[2])
+
+    return render_template('index.html', books=book_list, authors=book_author)
 
 
 @app.route('/books')
@@ -52,7 +72,7 @@ def render_books():
             if book[-1] == author[0]:
                 book_author.append(author[1] + " " + author[2])
 
-    
+
     return render_template('books.html', books=book_list, authors=book_author)
 
 
