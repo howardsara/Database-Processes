@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-      <link rel="stylesheet" href="static/css/style.css">
-    </head>
-    <nav class="navbar">
-          <ul class="nav-list">
-            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="/books" class="nav-link">Books</a></li>
-            <li class="nav-item"><a href="/authors" class="nav-link">Authors</a></li>
-          </ul>
-      </nav>
+{% extends "base.html" %}
 
-    <body>
-        <article>
-            {% for author in authors %}
+    {% block main %}
+      <article>
+          {% for author in authors %}
             <div class="author">
-                <img src="/static/authors/{{ author[1] }}" alt="{{ author[2] }} {{ author[3]}}">
-                <p>{{ author[2] }} {{ author[3] }}</p>
+              <img src="/static/authors/{{ author[1] }}" alt="{{ author[2] }} {{ author[3]}}">
+              <p>{{ author[2] }} {{ author[3] }}</p>
             </div>
-            {% endfor %}
-        </article>
-    </body>
-    
-</html>
+          {% endfor %}
+      </article>
+    {% endblock %} 

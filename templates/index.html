@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="static/css/style.css">
-    </head>
-    <nav class="navbar">
-        <ul class="nav-list">
-            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="/books" class="nav-link">Books</a></li>
-            <li class="nav-item"><a href="/authors" class="nav-link">Authors</a></li>
-        </ul>
-    </nav>
-
-    <body>
+{% extends "base.html" %}
+    
+    {% block main %}
         <div class="carousel-container">
             <button class="prev">❮</button>
             <div class="carousel">
@@ -32,8 +21,4 @@
             <button class="next">❯</button>
         </div>
         <script src="static/script.js"></script>
-    </body>
-    
-
-    
-</html>
+    {% endblock %}
