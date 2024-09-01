@@ -23,71 +23,59 @@ def create_connection(db_file):
         return None
 
 
-@app.route('/')
-def render_index():
-    # Define query and connection
-    query = "SELECT title, rating, genre, published, cover, author_id FROM books WHERE rating > 3"
-    author_query = "SELECT author_id, first_name, last_name FROM authors"
+def connect_query(query):
+    # Connect to and query database
     con = create_connection(DATABASE)
     cur = con.cursor()
-
-    # Query the database
     cur.execute(query)
-    book_list = cur.fetchall()
-    cur.execute(author_query)
-    author_list = cur.fetchall()
+    list = cur.fetchall()
     con.close()
-    print(book_list, author_list)
 
-    # Make an ordered list of authors in relation to each book
-    book_author = []
-    for book in book_list:
-        for author in author_list:
-            if book[-1] == author[0]:
-                book_author.append(author[1] + " " + author[2])
+    return list
 
-    return render_template('index.html', books=book_list, authors=book_author)
+
+def foreign_key(list1, list2):
+    # Connect details from a second list to the foreign key in the first
+    details = []
+    for i in list1:
+        for j in list2:
+            if i[-1] == j[0]:
+                details.append(j[1] + " " + j[2])
+
+    return details
+
+
+@app.route('/')
+def render_index():
+    # Define query
+    book_query = "SELECT title, rating, genre, published, cover, author_id FROM books WHERE rating > 3"
+    author_query = "SELECT author_id, first_name, last_name FROM authors"
+
+    book_list = connect_query(book_query)
+    author_list = connect_query(author_query)
+
+    return render_template('index.html', books=book_list, authors=foreign_key(book_list, author_list))
 
 
 @app.route('/books')
 def render_books():
-    # Define query and connection
-    query = "SELECT title, rating, genre, published, cover, author_id FROM books"
+    # Define query
+    book_query = "SELECT title, rating, genre, published, cover, author_id FROM books"
     author_query = "SELECT author_id, first_name, last_name FROM authors"
-    con = create_connection(DATABASE)
-    cur = con.cursor()
 
-    # Query the database
-    cur.execute(query)
-    book_list = cur.fetchall()
-    cur.execute(author_query)
-    author_list = cur.fetchall()
-    con.close()
-    print(book_list, author_list)
+    book_list = connect_query(book_query)
+    author_list = connect_query(author_query)
 
-    # Make an ordered list of authors in relation to each book
-    book_author = []
-    for book in book_list:
-        for author in author_list:
-            if book[-1] == author[0]:
-                book_author.append(author[1] + " " + author[2])
-
-
-    return render_template('books.html', books=book_list, authors=book_author)
+    return render_template('books.html', books=book_list, authors=foreign_key(book_list, author_list))
 
 
 @app.route('/authors')
 def render_authors():
-    # Define query and connection
-    query = "SELECT * FROM authors"
-    con = create_connection(DATABASE)
-    cur = con.cursor()
+    # Define query
+    author_query = "SELECT author, first_name, last_name FROM authors"
+    
+    author_list = connect_query(author_query)
 
-    # Query the database
-    cur.execute(query)
-    author_list = cur.fetchall()
-    con.close()
-    print(author_list)
     return render_template('authors.html', authors=author_list)
 
 
