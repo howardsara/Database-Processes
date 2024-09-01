@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+    {% block main %}
+    <article>
+        {% if books|length == 0 and authors|length == 0 %}
+          <p>No results found</p>
+        {% else %}
+          {% for book in books %}
+              <div class="book">
+                  <img src="/static/covers/{{ book[4] }}" alt="{{book[0]}} by {{book[5]}}">
+                  <p>{{ book[0] }}</p>
+                  <p>by {{ book[5] }}</p>
+                  <p>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</p>
+                  <p>{{ book[2] }}</p>
+                  <p>Published: {{ book[3] }}</p>
+              </div>
+          {% endfor %}
+
+          {% for author in authors %}
+            <div class="author">
+              <img src="/static/authors/{{ author[2] }}" alt="{{ author[0] }} {{ author[1]}}">
+              <p>{{ author[0] }} {{ author[1] }}</p>
+            </div>
+          {% endfor %}
+        {% endif %}
+    </article>
+
+    {% endblock %} 

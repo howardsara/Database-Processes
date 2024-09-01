@@ -19,12 +19,28 @@ body {
 .navbar {
     background-color: #3F648C; /* Dark background color */
     padding: 10px 0; /* Vertical padding */
+    display: flex;
+    
 }
 
 .nav-list {
     list-style: none; /* Remove bullet points */
-    display: flex; /* Horizontal layout */
-    justify-content: center; /* Center the nav items */
+    display: flex;
+    justify-content: left; /* Center the nav items */
+}
+
+.searchbar {
+    display: flex;
+    width: auto;
+    justify-content: right;
+    margin-left: auto;  
+}
+
+form {
+    border: 1px;
+    border-color: white;
+    padding: 5px;
+    margin: 5px;
 }
 
 .nav-item {

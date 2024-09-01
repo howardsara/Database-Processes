@@ -2,6 +2,8 @@
 <html>
     <head>
       <link rel="stylesheet" href="static/css/style.css">
+      <link rel="icon" href="directory/image.png">
+      <!--Books icons created by popo2021 - Flaticon, https://www.flaticon.com/free-icons/books-->
     </head>
     <body>
         <nav class="navbar">
@@ -10,8 +12,13 @@
                 <li class="nav-item"><a href="/books" class="nav-link">Books</a></li>
                 <li class="nav-item"><a href="/authors" class="nav-link">Authors</a></li>
             </ul>
+            <div class="searchbar">
+                <form method="POST" action="/search">
+                    <input type="text" name="search" id="search" placeholder="Search all...">
+                </form>
+            </div>
         </nav>
-
+        
         <main>
             {% block main %}{% endblock %}
         </main>

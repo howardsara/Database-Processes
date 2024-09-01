@@ -7,9 +7,9 @@
                 <div class="carousel-images">
                     {% for book in books %}
                     <div class="index-book">
-                        <img src="/static/covers/{{ book[4] }}" alt="{{book[0]}} by {{authors[loop.index0]}}">
+                        <img src="/static/covers/{{ book[4] }}" alt="{{book[0]}} by {{book[5]}}">
                         <p>{{ book[0] }}</p>
-                        <p>by {{ authors[loop.index0] }}</p>
+                        <p>by {{ book[5] }}</p>
                         <p>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</p>
                         <p>{{ book[2] }}</p>
                         <p>Published: {{ book[3] }}</p>
