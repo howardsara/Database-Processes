@@ -24,7 +24,8 @@ def create_connection(db_file):
 
 
 def connect_query(query):
-    # Connect to and query database
+    """Connect to and query database"""
+ 
     con = create_connection(DATABASE)
     cur = con.cursor()
     cur.execute(query)
@@ -35,7 +36,8 @@ def connect_query(query):
 
 
 def foreign_key(list1, list2):
-    # Connect match from a second list to the foreign key in the first
+    """Connect match from a second list to the foreign key in the first"""
+
     match = []
     full_list = []
     for i in list1:
@@ -54,6 +56,11 @@ def foreign_key(list1, list2):
 
 @app.route('/')
 def render_index():
+    """
+    Finds all top rated books in the database
+    :returns a rendered page
+    """
+
     # Define query
     book_query = "SELECT title, rating, genre, published, cover, author_id FROM books WHERE rating > 3"
     author_query = "SELECT author_id, first_name, last_name FROM authors"
@@ -66,6 +73,11 @@ def render_index():
 
 @app.route('/books')
 def render_books():
+    """
+    Finds all books in the database
+    :returns a rendered page
+    """
+
     # Define query
     book_query = "SELECT title, rating, genre, published, cover, author_id FROM books"
     author_query = "SELECT author_id, first_name, last_name FROM authors"
@@ -78,6 +90,11 @@ def render_books():
 
 @app.route('/authors')
 def render_authors():
+    """
+    Finds all authors in the database
+    :returns a rendered page
+    """
+
     # Define query
     author_query = "SELECT author, first_name, last_name FROM authors"
     
@@ -105,7 +122,7 @@ def render_search():
     all_authors = connect_query(all_authors_query)
     books = connect_query(book_query)
     full_books = foreign_key(books, all_authors)
-    
+
     #Search books 
     filtered_books = []
     for book in full_books:
@@ -113,13 +130,14 @@ def render_search():
             if search.lower() in str(b).lower():
                 filtered_books.append(book)
                 break
-    
+
     # Connect and query database for authors
     con = create_connection(DATABASE)
     cur = con.cursor()
     cur.execute(author_query, ("%"+search+"%", "%"+search+"%"))
     author_list = cur.fetchall()
     con.close()
+
 
     return render_template('search.html', books=filtered_books, authors=author_list)
 
