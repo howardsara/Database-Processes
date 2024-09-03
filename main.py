@@ -54,6 +54,23 @@ def foreign_key(list1, list2):
     return full_list
 
 
+
+def sort(default):
+    """Sorts the database"""
+
+    sort = request.args.get('sort', default)
+    order = request.args.get('order', 'asc')
+    if order == 'asc':
+        new_order = 'desc'
+    else:
+        new_order = 'asc'
+
+    return sort, order, new_order
+
+
+
+
+
 @app.route('/')
 def render_index():
     """
@@ -78,23 +95,17 @@ def render_books():
     :returns a rendered page
     """
 
-    # Sort function"
-    sort = request.args.get('sort', 'title')
-    order = request.args.get('order', 'asc')
-    if order == 'asc':
-        new_order = 'desc'
-    else:
-        new_order = 'asc'
+    sorting = sort('book_id')
 
     # Define query
-    book_query = "SELECT title, rating, genre, published, cover, author_id FROM books ORDER BY " + sort +" "+ order
+    book_query = "SELECT title, rating, genre, published, cover, author_id FROM books ORDER BY " + sorting[0] +" "+ sorting[1]
     author_query = "SELECT author_id, name FROM authors"
 
     book_list = connect_query(book_query)
     author_list = connect_query(author_query)
 
 
-    return render_template('books.html', books=foreign_key(book_list, author_list), order=new_order)
+    return render_template('books.html', books=foreign_key(book_list, author_list), order=sorting[2])
 
 
 @app.route('/authors')
@@ -104,12 +115,14 @@ def render_authors():
     :returns a rendered page
     """
 
+    sorting = sort('author_id')
+
     # Define query
-    author_query = "SELECT author, name, age, country FROM authors"
+    author_query = "SELECT author, name, age, country FROM authors ORDER BY " + sorting[0] +" "+ sorting[1]
     
     author_list = connect_query(author_query)
 
-    return render_template('authors.html', authors=author_list)
+    return render_template('authors.html', authors=author_list, order=sorting[2])
 
 
 @app.route('/search', methods=['GET', 'POST'])

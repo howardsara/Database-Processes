@@ -1,6 +1,35 @@
 {% extends "base.html" %}
 
     {% block main %}
+
+    <div class="sort-dropdown">
+      <button class="dropbtn">Sort</button>
+      <div class="dropdown-content">
+          <a href="{{ url_for('render_authors', sort='name', order=order) }}">
+              Name
+              {% if request.args.get('sort') == 'name' %}
+                  <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
+              {% endif %}
+          </a>
+          <a href="{{ url_for('render_authors', sort='age', order=order) }}">
+              Age
+              {% if request.args.get('sort') == 'age' %}
+                  <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
+              {% endif %}
+          </a>
+          <a href="{{ url_for('render_authors', sort='country', order=order) }}">
+              Country
+              {% if request.args.get('sort') == 'country' %}
+                  <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
+              {% endif %}
+          </a>
+      </div>
+  </div>
+
+
+
+
+
       <article>
           {% for author in authors %}
             <div class="author">
