@@ -81,6 +81,70 @@ form {
 
 
 
+/* Style for sort buttons */
+.sort-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+    padding-left: 10px;
+}
+
+.dropbtn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.sort-dropdown:hover .dropbtn {
+    background-color: #0056b3;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    top: calc(100% + 20px); /* Position the dropdown below the button */
+    left: 0;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex; /* Use flexbox */
+    align-items: center;
+    justify-content: space-between; /* Ensure space between text and arrow */
+    border-radius: 5px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.sort-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Arrow icon styling */
+.sort-arrow {
+    width: 12px;
+    height: 12px;
+
+}
+
+
+
+
+
+
 
 /* Styling of books and authors on book/author pages */
 
@@ -106,7 +170,7 @@ article {
 
 
 img {
-    height: 300px;
+    height: 325px;
 }
 
 

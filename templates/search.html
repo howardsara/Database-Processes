@@ -18,8 +18,10 @@
 
           {% for author in authors %}
             <div class="author">
-              <img src="/static/authors/{{ author[2] }}" alt="{{ author[0] }} {{ author[1]}}">
-              <p>{{ author[0] }} {{ author[1] }}</p>
+              <img src="/static/authors/{{ author[0] }}" alt="{{ author[1] }}">
+              <p>{{ author[1] }}</p>
+              <p>Age: {{author[2]}}</p>
+              <p>{{author[3]}}</p>
             </div>
           {% endfor %}
         {% endif %}

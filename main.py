@@ -43,7 +43,7 @@ def foreign_key(list1, list2):
     for i in list1:
         for j in list2:
             if i[-1] == j[0]:
-                match.append(j[1] + " " + j[2])
+                match.append(j[1])
 
     for i in list1:
         main = list(i)
@@ -63,7 +63,7 @@ def render_index():
 
     # Define query
     book_query = "SELECT title, rating, genre, published, cover, author_id FROM books WHERE rating > 3"
-    author_query = "SELECT author_id, first_name, last_name FROM authors"
+    author_query = "SELECT author_id, name FROM authors"
 
     book_list = connect_query(book_query)
     author_list = connect_query(author_query)
@@ -78,14 +78,23 @@ def render_books():
     :returns a rendered page
     """
 
+    # Sort function"
+    sort = request.args.get('sort', 'title')
+    order = request.args.get('order', 'asc')
+    if order == 'asc':
+        new_order = 'desc'
+    else:
+        new_order = 'asc'
+
     # Define query
-    book_query = "SELECT title, rating, genre, published, cover, author_id FROM books"
-    author_query = "SELECT author_id, first_name, last_name FROM authors"
+    book_query = "SELECT title, rating, genre, published, cover, author_id FROM books ORDER BY " + sort +" "+ order
+    author_query = "SELECT author_id, name FROM authors"
 
     book_list = connect_query(book_query)
     author_list = connect_query(author_query)
 
-    return render_template('books.html', books=foreign_key(book_list, author_list))
+
+    return render_template('books.html', books=foreign_key(book_list, author_list), order=new_order)
 
 
 @app.route('/authors')
@@ -96,7 +105,7 @@ def render_authors():
     """
 
     # Define query
-    author_query = "SELECT author, first_name, last_name FROM authors"
+    author_query = "SELECT author, name, age, country FROM authors"
     
     author_list = connect_query(author_query)
 
@@ -115,8 +124,8 @@ def render_search():
 
     # Define queries
     book_query = "SELECT title, rating, genre, published, cover, author_id FROM books"
-    author_query = "SELECT first_name, last_name, author FROM authors WHERE first_name LIKE ? OR last_name LIKE ?"
-    all_authors_query = "SELECT author_id, first_name, last_name FROM authors"
+    author_query = "SELECT author, name, age, country FROM authors WHERE name LIKE ? OR age LIKE ? OR country LIKE ?"
+    all_authors_query = "SELECT author_id, name FROM authors"
     
     # Connect releavent author to each book 
     all_authors = connect_query(all_authors_query)
@@ -134,7 +143,7 @@ def render_search():
     # Connect and query database for authors
     con = create_connection(DATABASE)
     cur = con.cursor()
-    cur.execute(author_query, ("%"+search+"%", "%"+search+"%"))
+    cur.execute(author_query, ("%"+search+"%", "%"+search+"%", "%"+search+"%"))
     author_list = cur.fetchall()
     con.close()
 

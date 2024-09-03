@@ -1,6 +1,37 @@
 {% extends "base.html" %}
 
     {% block main %}
+
+        <div class="sort-dropdown">
+            <button class="dropbtn">Sort</button>
+            <div class="dropdown-content">
+                <a href="{{ url_for('render_books', sort='title', order=order) }}">
+                    Title
+                    {% if request.args.get('sort') == 'title' %}
+                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('render_books', sort='rating', order=order) }}">
+                    Rating
+                    {% if request.args.get('sort') == 'rating' %}
+                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('render_books', sort='genre', order=order) }}">
+                    Genre
+                    {% if request.args.get('sort') == 'genre' %}
+                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
+                    {% endif %}
+                </a>
+                <a href="{{ url_for('render_books', sort='published', order=order) }}">
+                    Published
+                    {% if request.args.get('sort') == 'published' %}
+                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+<!-- Up and down arrow icons created by Rahul Kaklotar - Flaticon, "https://www.flaticon.com/free-icons/up-and-down-arrow"-->
         <article>
             
             {% for book in books %}
