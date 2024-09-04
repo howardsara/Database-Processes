@@ -35,26 +35,6 @@ def connect_query(query):
     return list
 
 
-def foreign_key(list1, list2):
-    """Connect match from a second list to the foreign key in the first"""
-
-    match = []
-    full_list = []
-    for i in list1:
-        for j in list2:
-            if i[-1] == j[0]:
-                match.append(j[1])
-
-    for i in list1:
-        main = list(i)
-        foreign = match[list1.index(i)]
-        main[-1] = foreign
-        full_list.append(main)
-
-    return full_list
-
-
-
 def sort(default):
     """Sorts the database"""
 
@@ -68,9 +48,6 @@ def sort(default):
     return sort, order, new_order
 
 
-
-
-
 @app.route('/')
 def render_index():
     """
@@ -79,13 +56,11 @@ def render_index():
     """
 
     # Define query
-    book_query = "SELECT title, rating, genre, published, cover, author_id FROM books WHERE rating > 3"
-    author_query = "SELECT author_id, name FROM authors"
+    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id == authors.author_id AND rating > 3"
 
     book_list = connect_query(book_query)
-    author_list = connect_query(author_query)
 
-    return render_template('index.html', books=foreign_key(book_list, author_list))
+    return render_template('index.html', books=book_list)
 
 
 @app.route('/books')
@@ -97,15 +72,13 @@ def render_books():
 
     sorting = sort('book_id')
 
-    # Define query
-    book_query = "SELECT title, rating, genre, published, cover, author_id FROM books ORDER BY " + sorting[0] +" "+ sorting[1]
-    author_query = "SELECT author_id, name FROM authors"
+    # Define and execute query
+    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id == authors.author_id ORDER BY " + sorting[0] +" "+ sorting[1]
 
     book_list = connect_query(book_query)
-    author_list = connect_query(author_query)
 
 
-    return render_template('books.html', books=foreign_key(book_list, author_list), order=sorting[2])
+    return render_template('books.html', books=book_list, order=sorting[2])
 
 
 @app.route('/authors')
@@ -117,9 +90,8 @@ def render_authors():
 
     sorting = sort('author_id')
 
-    # Define query
+    # Define and execute query
     author_query = "SELECT author, name, age, country FROM authors ORDER BY " + sorting[0] +" "+ sorting[1]
-    
     author_list = connect_query(author_query)
 
     return render_template('authors.html', authors=author_list, order=sorting[2])
@@ -136,32 +108,22 @@ def render_search():
     search = request.form['search']
 
     # Define queries
-    book_query = "SELECT title, rating, genre, published, cover, author_id FROM books"
+    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id == authors.author_id AND books.title LIKE ? OR books.rating LIKE ? OR books.genre LIKE ? OR books.published LIKE ? OR authors.name LIKE ?"
     author_query = "SELECT author, name, age, country FROM authors WHERE name LIKE ? OR age LIKE ? OR country LIKE ?"
-    all_authors_query = "SELECT author_id, name FROM authors"
     
-    # Connect releavent author to each book 
-    all_authors = connect_query(all_authors_query)
-    books = connect_query(book_query)
-    full_books = foreign_key(books, all_authors)
-
-    #Search books 
-    filtered_books = []
-    for book in full_books:
-        for b in book:
-            if search.lower() in str(b).lower():
-                filtered_books.append(book)
-                break
-
-    # Connect and query database for authors
+    # Connect to database
     con = create_connection(DATABASE)
     cur = con.cursor()
+
+    # Query for books and authors
+    cur.execute(book_query, ("%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%"))
+    book_list = cur.fetchall()
     cur.execute(author_query, ("%"+search+"%", "%"+search+"%", "%"+search+"%"))
     author_list = cur.fetchall()
+
     con.close()
 
-
-    return render_template('search.html', books=filtered_books, authors=author_list)
+    return render_template('search.html', books=book_list, authors=author_list)
 
 
 if __name__ == '__main__':
