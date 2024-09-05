@@ -37,7 +37,9 @@
             {% for book in books %}
             <div class="book">
                 <img src="/static/covers/{{ book[4] }}" alt="{{book[0]}} by {{book[5]}}">
-                <p>{{ book[0] }}</p>
+                <a href="/book/{{book[6]}}">
+                    <p>{{ book[0] }}</p>
+                </a>
                 <p>by {{ book[5] }}</p>
                 <p>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</p>
                 <p>{{ book[2] }}</p>

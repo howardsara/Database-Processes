@@ -13,7 +13,7 @@ def create_connection(db_file):
     Creates connection to the database
     :parameter    db_file - name of the file 
     :returns    connection - connection to the database"""
-    
+
     try:
         connection = sqlite3.connect(db_file)
         return connection
@@ -29,10 +29,10 @@ def connect_query(query):
     con = create_connection(DATABASE)
     cur = con.cursor()
     cur.execute(query)
-    list = cur.fetchall()
+    result = cur.fetchall()
     con.close()
 
-    return list
+    return result
 
 
 def sort(default):
@@ -56,7 +56,7 @@ def render_index():
     """
 
     # Define query
-    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id == authors.author_id AND rating > 3"
+    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name, books.url FROM books, authors WHERE books.author_id = authors.author_id AND rating > 3"
 
     book_list = connect_query(book_query)
 
@@ -73,7 +73,7 @@ def render_books():
     sorting = sort('book_id')
 
     # Define and execute query
-    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id == authors.author_id ORDER BY " + sorting[0] +" "+ sorting[1]
+    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name, books.url FROM books, authors WHERE books.author_id = authors.author_id ORDER BY " + sorting[0] +" "+ sorting[1]
 
     book_list = connect_query(book_query)
 
@@ -108,7 +108,7 @@ def render_search():
     search = request.form['search']
 
     # Define queries
-    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id == authors.author_id AND books.title LIKE ? OR books.rating LIKE ? OR books.genre LIKE ? OR books.published LIKE ? OR authors.name LIKE ?"
+    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id = authors.author_id AND books.title LIKE ? OR books.rating LIKE ? OR books.genre LIKE ? OR books.published LIKE ? OR authors.name LIKE ?"
     author_query = "SELECT author, name, age, country FROM authors WHERE name LIKE ? OR age LIKE ? OR country LIKE ?"
     
     # Connect to database
@@ -124,6 +124,17 @@ def render_search():
     con.close()
 
     return render_template('search.html', books=book_list, authors=author_list)
+
+
+@app.route('/book/<url>')
+def render_book(url):
+    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id = authors.author_id AND books.url = '" + url + "'"
+
+    book_list = connect_query(book_query)
+    print(book_list)
+
+
+    return render_template("book.html", books=book_list)
 
 
 if __name__ == '__main__':
