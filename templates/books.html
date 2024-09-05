@@ -37,7 +37,7 @@
             {% for book in books %}
             <div class="book">
                 <img src="/static/covers/{{ book[4] }}" alt="{{book[0]}} by {{book[5]}}">
-                <a href="/book/{{book[6]}}">
+                <a href="/book/{{book[6]}}" class="name">
                     <p>{{ book[0] }}</p>
                 </a>
                 <p>by {{ book[5] }}</p>

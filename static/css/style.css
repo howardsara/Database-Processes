@@ -52,8 +52,6 @@ form {
 }
 
 /*Search bar */
-
-
 .searchbar input[type="text"] {
     width: 100%;
     padding: 8px;
@@ -64,15 +62,15 @@ form {
 
 
 .nav-item {
-    margin: 0 15px; /* Horizontal spacing between items */
+    margin: 0 15px; 
 }
 
 .nav-link {
-    color: #E6EEF2; /* White text color */
-    text-decoration: none; /* Remove underline */
-    padding: 10px 15px; /* Padding around the text */
-    display: block; /* Make the link block-level */
-    transition: background-color 0.3s ease; /* Smooth background color change */
+    color: white; 
+    text-decoration: none; 
+    padding: 10px 15px; 
+    display: block; 
+    transition: background-color 0.3s ease; 
 }
 
 .nav-link:hover {
@@ -90,7 +88,7 @@ form {
 }
 
 .dropbtn {
-    background-color: #007bff;
+    background-color: #84A9CD;
     color: white;
     padding: 10px 15px;
     font-size: 16px;
@@ -100,7 +98,7 @@ form {
 }
 
 .sort-dropdown:hover .dropbtn {
-    background-color: #0056b3;
+    background-color: #84A9CD;
 }
 
 .dropdown-content {
@@ -139,10 +137,6 @@ form {
     height: 12px;
 
 }
-
-
-
-
 
 
 
@@ -239,4 +233,15 @@ button {
     .index-book {
         flex: 1 0 100%; /* Show 1 image at a time on very small screens */
     }
+}
+
+
+/* Book title/author name linked styling */
+.name {
+    color: #ffffff; 
+    text-decoration: none; 
+}
+
+.name:hover {
+    color: #3F648C;
 }

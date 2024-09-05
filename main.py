@@ -55,9 +55,8 @@ def render_index():
     :returns a rendered page
     """
 
-    # Define query
+    # Define and execute query
     book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name, books.url FROM books, authors WHERE books.author_id = authors.author_id AND rating > 3"
-
     book_list = connect_query(book_query)
 
     return render_template('index.html', books=book_list)
@@ -74,9 +73,7 @@ def render_books():
 
     # Define and execute query
     book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name, books.url FROM books, authors WHERE books.author_id = authors.author_id ORDER BY " + sorting[0] +" "+ sorting[1]
-
     book_list = connect_query(book_query)
-
 
     return render_template('books.html', books=book_list, order=sorting[2])
 
@@ -131,10 +128,20 @@ def render_book(url):
     book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id = authors.author_id AND books.url = '" + url + "'"
 
     book_list = connect_query(book_query)
-    print(book_list)
-
 
     return render_template("book.html", books=book_list)
+
+
+@app.route('/author/<name>')
+def render_author(name):
+    author_query = "SELECT author, name, age, country FROM authors WHERE name = '" + name + "'"
+
+    author_list = connect_query(author_query)
+
+    return render_template("author.html", authors=author_list)
+
+
+
 
 
 if __name__ == '__main__':
