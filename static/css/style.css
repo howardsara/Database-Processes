@@ -163,6 +163,24 @@ article {
 }
 
 
+.authors_books {
+    flex: 0 1 calc(calc(100% / 6) - 20px);
+    background-color: #84A9CD;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 1.2rem;
+}
+
+
+.authors_books img {
+    height: 275px;
+}
+
+
+
+
 img {
     height: 325px;
 }

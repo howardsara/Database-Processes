@@ -11,4 +11,12 @@
                 </div>
             {% endfor %}
         </article>
+        <article>
+            {% for book in books %}
+                <div class="authors_books">
+                    <img src="/static/covers/{{ book[1] }}" alt="{{book[0]}} by {{authors[0][1]}}">
+                    <p>{{ book[0] }}</p>
+                </div>
+            {% endfor %}
+        </article>
     {% endblock %}

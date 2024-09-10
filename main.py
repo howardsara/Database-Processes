@@ -125,7 +125,7 @@ def render_search():
 
 @app.route('/book/<url>')
 def render_book(url):
-    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id = authors.author_id AND books.url = '" + url + "'"
+    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name, books.quote, books.adaptation, books.pages FROM books, authors WHERE books.author_id = authors.author_id AND books.url = '" + url + "'"
 
     book_list = connect_query(book_query)
 
@@ -134,11 +134,13 @@ def render_book(url):
 
 @app.route('/author/<name>')
 def render_author(name):
-    author_query = "SELECT author, name, age, country FROM authors WHERE name = '" + name + "'"
+    author_query = "SELECT authors.author, authors.name, authors.age, authors.country FROM authors WHERE authors.name = '" + name + "'"
+    books_query = "SELECT books.title, books.cover FROM authors, books WHERE books.author_id = authors.author_id AND authors.name = '" + name + "'"
 
     author_list = connect_query(author_query)
+    authors_books = connect_query(books_query)
 
-    return render_template("author.html", authors=author_list)
+    return render_template("author.html", authors=author_list, books=authors_books)
 
 
 
