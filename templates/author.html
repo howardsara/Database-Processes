@@ -5,7 +5,9 @@
             {% for author in authors %}
                 <div class="author">
                     <img src="/static/authors/{{ author[0] }}" alt="{{ author[1] }}">
-                    <p>{{ author[1] }}</p>
+                    <a href="/author/{{author[1]}}" class="name">
+                        <p>{{ author[1] }}</p>
+                    </a>
                     <p>Age: {{author[2]}}</p>
                     <p>{{author[3]}}</p>
                 </div>
@@ -15,7 +17,9 @@
             {% for book in books %}
                 <div class="authors_books">
                     <img src="/static/covers/{{ book[1] }}" alt="{{book[0]}} by {{authors[0][1]}}">
-                    <p>{{ book[0] }}</p>
+                    <a href="/book/{{book[2]}}" class="name">
+                        <p>{{ book[0] }}</p>
+                    </a>
                 </div>
             {% endfor %}
         </article>
