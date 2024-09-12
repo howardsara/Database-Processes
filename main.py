@@ -56,7 +56,7 @@ def render_index():
     """
 
     # Define and execute query
-    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name, books.url FROM books, authors WHERE books.author_id = authors.author_id AND rating > 3"
+    book_query = "SELECT books.title, books.rating, books.genre, books.cover, authors.name, books.url FROM books, authors WHERE books.author_id = authors.author_id AND rating > 3"
     book_list = connect_query(book_query)
 
     return render_template('index.html', books=book_list)
@@ -72,7 +72,7 @@ def render_books():
     sorting = sort('book_id')
 
     # Define and execute query
-    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name, books.url FROM books, authors WHERE books.author_id = authors.author_id ORDER BY " + sorting[0] +" "+ sorting[1]
+    book_query = "SELECT books.title, books.rating, books.genre, books.cover, authors.name, books.url FROM books, authors WHERE books.author_id = authors.author_id ORDER BY " + sorting[0] +" "+ sorting[1]
     book_list = connect_query(book_query)
 
     return render_template('books.html', books=book_list, order=sorting[2])
@@ -88,7 +88,7 @@ def render_authors():
     sorting = sort('author_id')
 
     # Define and execute query
-    author_query = "SELECT author, name, age, country FROM authors ORDER BY " + sorting[0] +" "+ sorting[1]
+    author_query = "SELECT author_id, name, age, country FROM authors ORDER BY " + sorting[0] +" "+ sorting[1]
     author_list = connect_query(author_query)
 
     return render_template('authors.html', authors=author_list, order=sorting[2])
@@ -105,7 +105,7 @@ def render_search():
     search = request.form['search']
 
     # Define queries
-    book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name FROM books, authors WHERE books.author_id = authors.author_id AND books.title LIKE ? OR books.rating LIKE ? OR books.genre LIKE ? OR books.published LIKE ? OR authors.name LIKE ?"
+    book_query = "SELECT books.title, books.rating, books.genre, books.cover, authors.name FROM books, authors WHERE books.author_id = authors.author_id AND (books.title LIKE ? OR books.rating LIKE ? OR books.genre LIKE ? OR authors.name LIKE ?)"
     author_query = "SELECT author, name, age, country FROM authors WHERE name LIKE ? OR age LIKE ? OR country LIKE ?"
     
     # Connect to database
@@ -113,13 +113,14 @@ def render_search():
     cur = con.cursor()
 
     # Query for books and authors
-    cur.execute(book_query, ("%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%"))
+    cur.execute(book_query, ("%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%"))
     book_list = cur.fetchall()
     cur.execute(author_query, ("%"+search+"%", "%"+search+"%", "%"+search+"%"))
     author_list = cur.fetchall()
 
     con.close()
 
+    print(book_list)
     return render_template('search.html', books=book_list, authors=author_list)
 
 
