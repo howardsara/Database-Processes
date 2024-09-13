@@ -69,9 +69,8 @@ def render_books():
     :returns a rendered page
     """
 
+    # Define sort, query and execute query
     sorting = sort('book_id')
-
-    # Define and execute query
     book_query = "SELECT books.title, books.rating, books.genre, books.cover, authors.name, books.url FROM books, authors WHERE books.author_id = authors.author_id ORDER BY " + sorting[0] +" "+ sorting[1]
     book_list = connect_query(book_query)
 
@@ -85,9 +84,8 @@ def render_authors():
     :returns a rendered page
     """
 
+    # Define sort, query and execute query
     sorting = sort('author_id')
-
-    # Define and execute query
     author_query = "SELECT author_id, name, age, country FROM authors ORDER BY " + sorting[0] +" "+ sorting[1]
     author_list = connect_query(author_query)
 
@@ -101,33 +99,30 @@ def render_search():
     :POST contains the search value
     :returns a rendered page"""
 
-    # Define search
+    # Define search and queries
     search = request.form['search']
-
-    # Define queries
-    book_query = "SELECT books.title, books.rating, books.genre, books.cover, authors.name FROM books, authors WHERE books.author_id = authors.author_id AND (books.title LIKE ? OR books.rating LIKE ? OR books.genre LIKE ? OR authors.name LIKE ?)"
+    book_query = "SELECT books.title, books.rating, books.genre, books.cover, authors.name, books.url FROM books, authors WHERE books.author_id = authors.author_id AND (books.title LIKE ? OR books.rating LIKE ? OR books.genre LIKE ? OR authors.name LIKE ?)"
     author_query = "SELECT author, name, age, country FROM authors WHERE name LIKE ? OR age LIKE ? OR country LIKE ?"
     
     # Connect to database
     con = create_connection(DATABASE)
     cur = con.cursor()
 
-    # Query for books and authors
+    # Query for books and authors with search term
     cur.execute(book_query, ("%"+search+"%", "%"+search+"%", "%"+search+"%", "%"+search+"%"))
     book_list = cur.fetchall()
     cur.execute(author_query, ("%"+search+"%", "%"+search+"%", "%"+search+"%"))
     author_list = cur.fetchall()
-
     con.close()
 
-    print(book_list)
     return render_template('search.html', books=book_list, authors=author_list)
 
 
 @app.route('/book/<url>')
 def render_book(url):
+    
+    # Define and execute query
     book_query = "SELECT books.title, books.rating, books.genre, books.published, books.cover, authors.name, books.quote, books.adaptation, books.pages, books.url FROM books, authors WHERE books.author_id = authors.author_id AND books.url = '" + url + "'"
-
     book_list = connect_query(book_query)
 
     return render_template("book.html", books=book_list)
@@ -135,16 +130,14 @@ def render_book(url):
 
 @app.route('/author/<name>')
 def render_author(name):
+    
+    # Define and execute queries
     author_query = "SELECT authors.author, authors.name, authors.age, authors.country FROM authors WHERE authors.name = '" + name + "'"
     books_query = "SELECT books.title, books.cover, books.url FROM authors, books WHERE books.author_id = authors.author_id AND authors.name = '" + name + "'"
-
     author_list = connect_query(author_query)
     authors_books = connect_query(books_query)
 
     return render_template("author.html", authors=author_list, books=authors_books)
-
-
-
 
 
 if __name__ == '__main__':

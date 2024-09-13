@@ -8,8 +8,12 @@
           {% for book in books %}
               <div class="book">
                   <img src="/static/covers/{{ book[3] }}" alt="{{book[0]}} by {{book[4]}}">
-                  <p>{{ book[0] }}</p>
-                  <p>by {{ book[4] }}</p>
+                  <a href="/book/{{book[5]}}" target="_blank" class="name">
+                    <p>{{ book[0] }}</p>
+                  </a>
+                  <a href="/author/{{book[4]}}" target="_blank" class="name">
+                    <p>by {{ book[4] }}</p>
+                  </a>
                   <p>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</p>
                   <p>{{ book[2] }}</p>
               </div>
@@ -18,7 +22,9 @@
           {% for author in authors %}
             <div class="author">
               <img src="/static/authors/{{ author[0] }}" alt="{{ author[1] }}">
-              <p>{{ author[1] }}</p>
+              <a href="/author/{{author[1]}}" target="_blank" class="name">
+                <p>{{ author[1] }}</p>
+              </a>
               <p>Age: {{author[2]}}</p>
               <p>{{author[3]}}</p>
             </div>

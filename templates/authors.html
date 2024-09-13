@@ -31,7 +31,7 @@
             {% for author in authors %}
                 <div class="author">
                     <img src="/static/authors/{{ author[0] }}" alt="{{ author[1] }}">
-                    <a href="/author/{{author[1]}}" class="name">
+                    <a href="/author/{{author[1]}}" target="_blank" class="name">
                         <p>{{ author[1] }}</p>
                     </a>
                     <p>Age: {{author[2]}}</p>

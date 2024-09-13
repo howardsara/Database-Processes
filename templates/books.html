@@ -23,12 +23,6 @@
                         <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
                     {% endif %}
                 </a>
-                <a href="{{ url_for('render_books', sort='published', order=order) }}">
-                    Published
-                    {% if request.args.get('sort') == 'published' %}
-                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
-                    {% endif %}
-                </a>
             </div>
         </div>
 <!-- Up and down arrow icons created by Rahul Kaklotar - Flaticon, "https://www.flaticon.com/free-icons/up-and-down-arrow"-->
@@ -37,10 +31,10 @@
             {% for book in books %}
             <div class="book">
                 <img src="/static/covers/{{ book[3] }}" alt="{{book[0]}} by {{book[4]}}">
-                <a href="/book/{{book[5]}}" class="name">
+                <a href="/book/{{book[5]}}" target="_blank" class="name">
                     <p>{{ book[0] }}</p>
                 </a>
-                <a href="/author/{{book[4]}}" class="name">
+                <a href="/author/{{book[4]}}" target="_blank" class="name">
                     <p>by {{ book[4] }}</p>
                 </a>
                 <p>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</p>
