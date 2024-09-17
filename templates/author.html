@@ -17,7 +17,7 @@
             {% for book in books %}
                 <div class="authors_books">
                     <img src="/static/covers/{{ book[1] }}" alt="{{book[0]}} by {{authors[0][1]}}">
-                    <a href="/book/{{book[2]}}" class="name">
+                    <a href="/book/{{book[2]}}" target="_blank" class="name">
                         <p>{{ book[0] }}</p>
                     </a>
                 </div>
