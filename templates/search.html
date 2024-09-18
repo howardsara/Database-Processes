@@ -1,35 +1,37 @@
 {% extends "base.html" %}
 
     {% block main %}
+    
+      {% if books|length == 0 and authors|length == 0 %}
+        <p>No results found</p>
+      {% else %}
+        <p>Search for: {{ search }}</p>
     <article>
-        {% if books|length == 0 and authors|length == 0 %}
-          <p>No results found</p>
-        {% else %}
-          {% for book in books %}
-              <div class="book">
-                  <img src="/static/covers/{{ book[3] }}" alt="{{book[0]}} by {{book[4]}}">
-                  <a href="/book/{{book[5]}}" target="_blank" class="name">
-                    <p>{{ book[0] }}</p>
-                  </a>
-                  <a href="/author/{{book[4]}}" target="_blank" class="name">
-                    <p>by {{ book[4] }}</p>
-                  </a>
-                  <p>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</p>
-                  <p>{{ book[2] }}</p>
-              </div>
-          {% endfor %}
-
-          {% for author in authors %}
-            <div class="author">
-              <img src="/static/authors/{{ author[0] }}" alt="{{ author[1] }}">
-              <a href="/author/{{author[1]}}" target="_blank" class="name">
-                <p>{{ author[1] }}</p>
-              </a>
-              <p>Age: {{author[2]}}</p>
-              <p>{{author[3]}}</p>
+        {% for book in books %}
+            <div class="book">
+                <img src="/static/covers/{{ book[3] }}" alt="{{book[0]}} by {{book[4]}}">
+                <a href="/book/{{book[5]}}" target="_blank" class="name">
+                  <p>{{ book[0] }}</p>
+                </a>
+                <a href="/author/{{book[4]}}" target="_blank" class="name">
+                  <p>by {{ book[4] }}</p>
+                </a>
+                <p>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</p>
+                <p>{{ book[2] }}</p>
             </div>
-          {% endfor %}
-        {% endif %}
+        {% endfor %}
+
+        {% for author in authors %}
+          <div class="author">
+            <img src="/static/authors/{{ author[0] }}" alt="{{ author[1] }}">
+            <a href="/author/{{author[1]}}" target="_blank" class="name">
+              <p>{{ author[1] }}</p>
+            </a>
+            <p>Age: {{author[2]}}</p>
+            <p>{{author[3]}}</p>
+          </div>
+        {% endfor %}
+      {% endif %}
     </article>
 
     {% endblock %} 

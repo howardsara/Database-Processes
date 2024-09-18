@@ -2,25 +2,30 @@
 
     {% block main %}
 
-        <article>     
+        <div class="individual">     
             {% for book in books %}
-            <div class="book">
+            <div class="cover">
                 <img src="/static/covers/{{ book[4] }}" alt="{{book[0]}} by {{book[5]}}">
-                <a href="/book/{{book[9]}}" class="name">
+            </div>
+            <div class="text">
+                <a href="/book/{{book[9]}}" class="individual-name">
                     <p>{{ book[0] }}</p>
                 </a>
-                <a href="/author/{{book[5]}}" target="_blank" class="name">
+                <a href="/author/{{book[5]}}" target="_blank" class="individual-name">
                     <p>by {{ book[5] }}</p>
                 </a>
                 <p>{{ "★"*(book[1]) }}{{"☆"*(5-book[1]) }}</p>
                 <p>{{ book[2] }}</p>
                 <p>Published: {{ book[3] }}</p>
-                <p>{{ book[6] }}</p>
+                
                 {% if book[7] != "No" %}
                     <p>{{ book[7] }}</p>
                 {% endif %}
                 <p>Length: {{ book[8] }} pages</p>
             </div>
+            <div class="quote">
+                <p>{{ book[6] }}</p>
+            </div>
             {% endfor %}
-        </article>
+        </div>
     {% endblock %}

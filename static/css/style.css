@@ -3,7 +3,25 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto Flex", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0,
+    "wdth" 100,
+    "GRAD" 0,
+    "XOPQ" 96,
+    "XTRA" 468,
+    "YOPQ" 79,
+    "YTAS" 750,
+    "YTDE" -203,
+    "YTFI" 738,
+    "YTLC" 514,
+    "YTUC" 712;
 }
+
+
 
 /* Style for the body */
 body {
@@ -179,12 +197,9 @@ article {
 }
 
 
-
-
 img {
     height: 325px;
 }
-
 
 
 
@@ -262,4 +277,54 @@ button {
 
 .name:hover {
     color: #3F648C;
+}
+
+.individual-name {
+    color: black; 
+    text-decoration: none; 
+}
+
+.individual-name:hover {
+    color: #3F648C;
+}
+
+
+
+/* Styling for individual book page */
+
+.individual {
+    display: flex;
+    flex-direction: row;
+    gap: 20px; /* Spacing between items */
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.cover, .text, .quote {
+    display: flex;
+    width: fit-content;
+    height: 70vh;
+    color: black;
+    padding: 20px;
+    text-align: left;
+    border-radius: 8px;
+    font-size: 22px;
+    justify-content: left;
+    flex-direction: column;
+}
+
+.quote {
+    max-width: 60vh
+}
+
+
+.quote p {
+    font-size: 30px;
+  }
+
+
+.cover img {
+    height: 100%;
+    width: auto;
 }

@@ -130,7 +130,7 @@ def render_search():
     author_list = cur.fetchall()
     con.close()
 
-    return render_template('search.html', books=book_list, authors=author_list)
+    return render_template('search.html', books=book_list, authors=author_list, search=search)
 
 
 @app.route('/book/<url>')

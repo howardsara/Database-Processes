@@ -8,19 +8,19 @@
                 <a href="{{ url_for('render_books', sort='title', order=order) }}">
                     Title
                     {% if request.args.get('sort') == 'title' %}
-                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
+                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'desc' %}style="transform: rotate(180deg);" {% endif %}>
                     {% endif %}
                 </a>
                 <a href="{{ url_for('render_books', sort='rating', order=order) }}">
                     Rating
                     {% if request.args.get('sort') == 'rating' %}
-                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
+                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'desc' %}style="transform: rotate(180deg);" {% endif %}>
                     {% endif %}
                 </a>
                 <a href="{{ url_for('render_books', sort='genre', order=order) }}">
                     Genre
                     {% if request.args.get('sort') == 'genre' %}
-                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'asc' %}style="transform: rotate(180deg);" {% endif %}>
+                        <img src="/static/icons/uparrow.png" class="sort-arrow" {% if request.args.get('order') == 'desc' %}style="transform: rotate(180deg);" {% endif %}>
                     {% endif %}
                 </a>
             </div>
