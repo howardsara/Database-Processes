@@ -1,13 +1,14 @@
 {% extends "base.html" %}
     
     {% block main %}
+        <h2>Top Rated Books</h2>
         <div class="carousel-container">
             <button class="prev">❮</button>
             <div class="carousel">
                 <div class="carousel-images">
                     {% for book in books %}
                     <div class="index-book">
-                        <img src="/static/covers/{{ book[3] }}" alt="{{book[0]}} by {{book[4]}}">
+                        <img src="/static/covers/{{ book[3] }}" alt="{{book[6]}}">
                         <a href="/book/{{book[5]}}" target="_blank" class="name">
                             <p>{{ book[0] }}</p>
                         </a>

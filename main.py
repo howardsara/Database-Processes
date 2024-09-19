@@ -57,7 +57,7 @@ def render_index():
     # Define and execute query
     book_query = (
         "SELECT books.title, books.rating, books.genre, books.cover,"
-        " authors.name, books.url FROM books, authors "
+        " authors.name, books.url, books.alt FROM books, authors "
         "WHERE books.author_id = authors.author_id AND rating > 3")
     book_list = connect_query(book_query)
 
@@ -74,7 +74,7 @@ def render_books():
     sorting = sort('book_id')
     book_query = (
         "SELECT books.title, books.rating, books.genre, books.cover, "
-        "authors.name, books.url FROM books, authors "
+        "authors.name, books.url, books.alt FROM books, authors "
         "WHERE books.author_id = authors.author_id "
         "ORDER BY " + sorting[0] + " " + sorting[1])
     book_list = connect_query(book_query)
@@ -109,7 +109,7 @@ def render_search():
     search = request.form['search']
     book_query = (
         "SELECT books.title, books.rating, books.genre, books.cover, "
-        "authors.name, books.url FROM books, authors "
+        "authors.name, books.url, books.alt FROM books, authors "
         "WHERE books.author_id = authors.author_id "
         "AND (books.title LIKE ? OR books.rating LIKE ? OR books.genre LIKE ? "
         "OR authors.name LIKE ?)")
@@ -140,7 +140,8 @@ def render_book(url):
     book_query = (
         "SELECT books.title, books.rating, books.genre, "
         "books.published, books.cover, authors.name, books.quote,"
-        "books.adaptation, books.pages, books.url FROM books, authors WHERE "
+        "books.adaptation, books.pages, books.url, books.alt " 
+        "FROM books, authors WHERE "
         "books.author_id = authors.author_id AND books.url = '" + url + "'")
 
     book_list = connect_query(book_query)
@@ -156,8 +157,8 @@ def render_author(name):
         "SELECT authors.author, authors.name, authors.age, authors.country "
         "FROM authors WHERE authors.name = '" + name + "'")
     books_query = (
-        "SELECT books.title, books.cover, books.url FROM authors, books WHERE "
-        "books.author_id = authors.author_id AND "
+        "SELECT books.title, books.cover, books.url, books.alt FROM authors,"
+        " books WHERE books.author_id = authors.author_id AND "
         "authors.name = '" + name + "'")
     authors = connect_query(author_query)
     authors_books = connect_query(books_query)
