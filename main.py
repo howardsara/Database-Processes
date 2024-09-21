@@ -57,7 +57,7 @@ def render_index():
     # Define and execute query
     book_query = (
         "SELECT books.title, books.rating, books.genre, books.cover,"
-        " authors.name, books.url, books.alt FROM books, authors "
+        " authors.name, books.url, books.alt, authors.url FROM books, authors "
         "WHERE books.author_id = authors.author_id AND rating > 3")
     book_list = connect_query(book_query)
 
@@ -74,7 +74,7 @@ def render_books():
     sorting = sort('book_id')
     book_query = (
         "SELECT books.title, books.rating, books.genre, books.cover, "
-        "authors.name, books.url, books.alt FROM books, authors "
+        "authors.name, books.url, books.alt, authors.url FROM books, authors "
         "WHERE books.author_id = authors.author_id "
         "ORDER BY " + sorting[0] + " " + sorting[1])
     book_list = connect_query(book_query)
@@ -91,7 +91,7 @@ def render_authors():
     # Define sort, query and execute query
     sorting = sort('author_id')
     author_query = (
-        "SELECT author_id, name, age, country, author FROM authors "
+        "SELECT author_id, name, age, country, author, url FROM authors "
         "ORDER BY " + sorting[0] + " " + sorting[1])
     authors = connect_query(author_query)
 
@@ -114,7 +114,7 @@ def render_search():
         "AND (books.title LIKE ? OR books.rating LIKE ? OR books.genre LIKE ? "
         "OR authors.name LIKE ?)")
     author_query = (
-        "SELECT author, name, age, country FROM authors "
+        "SELECT author, name, age, country, url FROM authors "
         "WHERE name LIKE ? OR age LIKE ? OR country LIKE ?")
 
     # Connect to database
@@ -130,7 +130,9 @@ def render_search():
     author_list = cur.fetchall()
     con.close()
 
-    return render_template('search.html', books=book_list, authors=author_list, search=search)
+    return render_template(
+        'search.html', books=book_list, authors=author_list, search=search
+        )
 
 
 @app.route('/book/<url>')
@@ -140,7 +142,7 @@ def render_book(url):
     book_query = (
         "SELECT books.title, books.rating, books.genre, "
         "books.published, books.cover, authors.name, books.quote,"
-        "books.adaptation, books.pages, books.url, books.alt " 
+        "books.adaptation, books.pages, books.url, books.alt, authors.url "
         "FROM books, authors WHERE "
         "books.author_id = authors.author_id AND books.url = '" + url + "'")
 
@@ -149,17 +151,17 @@ def render_book(url):
     return render_template("book.html", books=book_list)
 
 
-@app.route('/author/<name>')
-def render_author(name):
+@app.route('/author/<url>')
+def render_author(url):
     """Generate an author page for an individual author."""
     # Define and execute queries
     author_query = (
-        "SELECT authors.author, authors.name, authors.age, authors.country "
-        "FROM authors WHERE authors.name = '" + name + "'")
+        "SELECT authors.author, authors.name, authors.age, authors.country, "
+        "authors.url FROM authors WHERE authors.url = '" + url + "'")
     books_query = (
         "SELECT books.title, books.cover, books.url, books.alt FROM authors,"
         " books WHERE books.author_id = authors.author_id AND "
-        "authors.name = '" + name + "'")
+        "authors.url = '" + url + "'")
     authors = connect_query(author_query)
     authors_books = connect_query(books_query)
 
